@@ -8,7 +8,10 @@ let config =
 {
     type: Phaser.AUTO,
     width: 960,
-    height: 540,
+    height: 960,
+    render: {
+        pixelArt: true
+    },
     physics:{
         default: "arcade",
         arcade:{
@@ -19,17 +22,18 @@ let config =
             }
         }
     },
+    zoom: 1,
     scene: [Load, Menu, Scene1]
 };
 
 let game = new Phaser.Game(config);
 
 //global variables
-let tileSize = 64;
+const centerX = game.config.width / 2;
+const centerY = game.config.height / 2;
+const buttomFifthY = game.config.height * 0.8;
+const w = game.config.width;
+const h = game.config.height;
 
-let gravityForce = 800;
-let fishAcceleration = 300;
-
-let highScore = 0;
-
-let sceneIndex = 0;
+const spaceShipRadius = 960 / 2;
+let cursors = null;

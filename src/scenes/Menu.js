@@ -8,7 +8,7 @@ class Menu extends Phaser.Scene
     create()
     {
         console.log("----- Enter Menu Scene -----");
-
+        this.scene.start("scene1");
     }
 
     update()
