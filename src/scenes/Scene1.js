@@ -48,5 +48,10 @@ class Scene1 extends Phaser.Scene
             Phaser.Actions.RotateAround(this.bgGroup.getChildren(), {x: spaceShipRadius, y: spaceShipRadius}, -this.bgRotateAngleSpeed);
             this.dave.setFlip();
         } 
+
+        if(cursors.up.isDown)
+        {
+            this.scene.start("scene2");
+        }
     }
 }

@@ -1,3 +1,5 @@
+//Wang Liao
+
 'use strict';
 
 //reserve keyboard vars
@@ -6,9 +8,10 @@ let keyUP, keyDOWN, keyR, keyG, keyT;
 //game config
 let config = 
 {
+    parent: "gameViewport",
     type: Phaser.AUTO,
-    width: 960,
-    height: 960,
+    width: 540,
+    height: 360,
     render: {
         pixelArt: true
     },
@@ -23,7 +26,19 @@ let config =
         }
     },
     zoom: 1,
-    scene: [Load, Menu, Scene1]
+    scale:{
+        //mode: Phaser.Scale.NONE,
+        mode: Phaser.Scale.FIT,
+        //mode: Phaser.Scale.ENVELOP,
+        //mode: Phaser.Scale.WIDTH_CONTROLS_HEIGHT,
+        //mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
+        //mode: Phaser.Scale.RESIZE,
+        //autoCenter: Phaser.Scale.NO_CENTER,
+        //autoCenter: Phaser.Scale.HORIZONTALLY,
+        //autoCenter: Phaser.Scale.VERTICALLY,
+        //autoCenter: Phaser.Scale.CENTER_BOTH
+    },
+    scene: [Load, Menu, Scene1, Scene2]
 };
 
 let game = new Phaser.Game(config);
