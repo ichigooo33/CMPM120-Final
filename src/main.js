@@ -9,9 +9,9 @@ let keyUP, keyDOWN, keyR, keyG, keyT;
 let config = 
 {
     parent: "gameViewport",
-    type: Phaser.AUTO,
-    width: 540,
-    height: 360,
+    type: Phaser.CANVAS,
+    width: 320,
+    height: 320,
     render: {
         pixelArt: true
     },
@@ -36,7 +36,7 @@ let config =
         //autoCenter: Phaser.Scale.NO_CENTER,
         //autoCenter: Phaser.Scale.HORIZONTALLY,
         //autoCenter: Phaser.Scale.VERTICALLY,
-        //autoCenter: Phaser.Scale.CENTER_BOTH
+        autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [Load, Menu, Scene1, Scene2]
 };
@@ -46,9 +46,7 @@ let game = new Phaser.Game(config);
 //global variables
 const centerX = game.config.width / 2;
 const centerY = game.config.height / 2;
-const buttomFifthY = game.config.height * 0.8;
 const w = game.config.width;
 const h = game.config.height;
 
-const spaceShipRadius = 960 / 2;
 let cursors = null;

@@ -21,12 +21,17 @@ class Load extends Phaser.Scene
         //set load path
         this.load.path = "assets/";
 
-        //load environment assets
-        this.load.image("Spaceship_bg", "Spaceship_bg.png");
-        this.load.image("Spaceship_fg_bed", "Spaceship_fg_bed.png");
-
         //load player asset
+        this.load.image("Character_Dave_Scene1", "Character_Dave_Scene1.png");
         this.load.image("Character_Dave", "Character_Dave.png");
+
+        //load scene1 asset
+        this.load.image("scene1_tilesetImage", "TileMap.png"); 
+        this.load.tilemapTiledJSON("scene1_tileMapJSON", "Scene1_TileMap.json");
+
+        //load scene2 asset
+        this.load.image("Space_bg", "Space_bg.png");
+        this.load.image("Pod", "Pod.png");
     }
 
     create()
