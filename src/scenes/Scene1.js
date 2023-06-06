@@ -38,7 +38,6 @@ class Scene1 extends Phaser.Scene
 
         //define cursor key input
         cursors = this.input.keyboard.createCursorKeys();
-        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
         //set collision
@@ -60,7 +59,7 @@ class Scene1 extends Phaser.Scene
             this.daveMove();
             this.checkCamBounds(this.dave, this.mainCam);
 
-            if(keySpace.isDown)
+            if(Phaser.Input.Keyboard.JustDown(keyR) && !dialogFinish)
             {
                 this.scene.run("scene1_dialog");
             }

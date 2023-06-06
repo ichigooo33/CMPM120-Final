@@ -62,7 +62,7 @@ class Scene1_Dialog extends Phaser.Scene {
         this.Pod = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Pod').setOrigin(0, 1);
 
         // input
-        cursors = this.input.keyboard.createCursorKeys();
+        this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         // start dialog
         this.typeText();        
@@ -70,7 +70,7 @@ class Scene1_Dialog extends Phaser.Scene {
 
     update() {
         // check for spacebar press
-        if(Phaser.Input.Keyboard.JustDown(cursors.space) && !this.dialogTyping) {
+        if(Phaser.Input.Keyboard.JustDown(this.keySpace) && !this.dialogTyping) {
             // trigger dialog
             this.typeText();
         }
@@ -118,6 +118,7 @@ class Scene1_Dialog extends Phaser.Scene {
             this.dialogbox.visible = false;
 
             //close the scene
+            dialogFinish = true;
             this.scene.sendToBack().sleep();
         } else {
             // if not, set current speaker

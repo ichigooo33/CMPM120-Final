@@ -3,7 +3,7 @@
 'use strict';
 
 //reserve keyboard vars
-let keyUP, keyDOWN, keyR, keyG, keyT, keySpace;
+let keyUP, keyDOWN, keyR, keyG, keyT;
 
 //game config
 let config = 
@@ -49,4 +49,5 @@ const centerY = game.config.height / 2;
 const w = game.config.width;
 const h = game.config.height;
 
+let dialogFinish = false;
 let cursors = null;
