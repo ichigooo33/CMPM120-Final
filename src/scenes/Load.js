@@ -21,6 +21,12 @@ class Load extends Phaser.Scene
         //set load path
         this.load.path = "assets/";
 
+        // load JSON (dialog)
+        this.load.json('dialog', 'json/dialog.json');
+
+        // load bitmap font
+        this.load.bitmapFont('gem_font', 'font/gem.png', 'font/gem.xml');
+
         //load player asset
         this.load.image("Character_Dave_Scene1", "Character_Dave_Scene1.png");
         this.load.image("Character_Dave", "Character_Dave.png");
@@ -28,6 +34,8 @@ class Load extends Phaser.Scene
         //load scene1 asset
         this.load.image("scene1_tilesetImage", "TileMap.png"); 
         this.load.tilemapTiledJSON("scene1_tileMapJSON", "Scene1_TileMap.json");
+        this.load.image("Hal", "Hal.png");
+        this.load.image("DialogBox", "DialogBox.png");
 
         //load scene2 asset
         this.load.image("Space_bg", "Space_bg.png");

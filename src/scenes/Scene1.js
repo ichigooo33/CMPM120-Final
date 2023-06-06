@@ -36,16 +36,18 @@ class Scene1 extends Phaser.Scene
         this.mainCam.centerOn(this.dave.x, this.dave.y);
         this.mainCam.setBackgroundColor("rgb(0, 0, 0)");
 
+        //define cursor key input
+        cursors = this.input.keyboard.createCursorKeys();
+        keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+
         //set collision
         wallLayer.setCollisionByProperty({collides: true});
         bedLayer.setCollisionByProperty({collides: true});
         computerLayer.setCollisionByProperty({collides: true});
         this.physics.add.collider(this.dave, wallLayer);
         this.physics.add.collider(this.dave, bedLayer);
-        this.physics.add.collider(this.dave, computerLayer);
-
-        //define cursor key input
-        cursors = this.input.keyboard.createCursorKeys();
+        this.physics.add.collider(this.dave, computerLayer, this.interactWithComputer);
 
         //define wolrd physics bounds
         this.physics.world.setBounds(0, 0, this.sceneAreaSize * 3, this.sceneAreaSize * 3);
@@ -53,8 +55,16 @@ class Scene1 extends Phaser.Scene
 
     update()
     {
-        this.daveMove();
-        this.checkCamBounds(this.dave, this.mainCam);
+        if(!this.scene.isActive('scene1_dialog'))
+        {
+            this.daveMove();
+            this.checkCamBounds(this.dave, this.mainCam);
+
+            if(keySpace.isDown)
+            {
+                this.scene.run("scene1_dialog");
+            }
+        }
     }
 
     daveMove()
@@ -165,5 +175,15 @@ class Scene1 extends Phaser.Scene
             cam.setScroll(cam.scrollX, 0);
             obj.y = cam.scrollY + obj.height/2 + 1;
         }
+    }
+
+    interactWithComputer()
+    {
+        console.log("Interact with computer");
+    }
+
+    talking()
+    {
+        this.scene.run("scene1_dialog");
     }
 }

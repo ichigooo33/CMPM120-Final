@@ -3,7 +3,7 @@
 'use strict';
 
 //reserve keyboard vars
-let keyUP, keyDOWN, keyR, keyG, keyT;
+let keyUP, keyDOWN, keyR, keyG, keyT, keySpace;
 
 //game config
 let config = 
@@ -38,7 +38,7 @@ let config =
         //autoCenter: Phaser.Scale.VERTICALLY,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [Load, Menu, Scene1, Scene2]
+    scene: [Load, Menu, Scene1, Scene1_Dialog, Scene2]
 };
 
 let game = new Phaser.Game(config);
