@@ -9,6 +9,9 @@ class Scene1 extends Phaser.Scene
     {
         console.log("----- Enter Scene 1 -----"); 
 
+        //reset global variable
+        dialogFinish = false;
+
         //define scene variables
         this.sceneAreaSize = 320;
         this.daveSpeed = 150;

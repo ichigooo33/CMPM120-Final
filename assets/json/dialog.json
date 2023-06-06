@@ -1,38 +1,32 @@
 [
 	[
 		{
+			"speaker" : "Dave",
+			"dialog" : "Hey HAL, could you run a diagnostic check on all ship systems?",
+			"newSpeaker" : "true"
+		},
+		{
 			"speaker" : "Hal",
-			"dialog" : "Tell me, O muse, of that ingenious hero who travelled far and wide after he had sacked the famous town of Troy.",
-			"newSpeaker" : "true"
-		}
-	],
-	[
-		{
-			"speaker" : "Character_Dave",
-			"dialog" : "See now, how men lay blame upon us gods for what is after all nothing but their own folly.",
+			"dialog" : "Of course, Dave. Initiating diagnostic scan now. Plese stand by.",
 			"newSpeaker" : "true"
 		},
 		{
-			"speaker" : "Character_Dave",
-			"dialog" : "Look at Aegisthus; he must needs make love to Agamemnon's wife unrighteously and then kill Agamemnon, though he knew it would be the death of him."
+			"speaker" : "Hal",
+			"dialog" : "MY F.P.C. shows an impending failure of the antenna orientation unit."
 		},
-		{	
-			"speaker" : "Character_Dave_Scene1",
-			"dialog" : "Father, son of Saturn, King of kings, it served Aegisthus right, and so it would any one else who does as he did; but Aegisthus is neither here nor there.",
+		{
+			"speaker" : "Dave",
+			"dialog" : "Let me see the antenna alignment display, please.",
 			"newSpeaker" : "true"
 		},
-		{	
-			"speaker" : "Character_Dave_Scene1",
-			"dialog" : "It is for Ulysses that my heart bleeds, when I think of his sufferings in that lonely sea-girt island, far away, poor man, from all his friends."
-		},
-		{	
-			"speaker" : "Pod",
-			"dialog" : "My child, what are you talking about? How can I forget Ulysses than whom there is no more capable man on earth, nor more liberal in his offerings to the immortal gods that live in heaven?",
+		{
+			"speaker" : "Hal",
+			"dialog" : "The unit is still operational, Dave. but it will fail within seventy-two hours.",
 			"newSpeaker" : "true"
 		},
-		{	
-			"speaker" : "Character_Dave_Scene1",
-			"dialog" : "If, then, the gods now mean that Ulysses should get home, we should first send Mercury to the Ogygian island to tell Calypso that we have made up our minds and that he is to return.",
+		{
+			"speaker" : "Dave",
+			"dialog" : " I understand Hal. We'll take care of it. Please, let me have the hardcopy.",
 			"newSpeaker" : "true"
 		}
 	]

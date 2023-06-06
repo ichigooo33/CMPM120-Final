@@ -57,7 +57,7 @@ class Scene1_Dialog extends Phaser.Scene {
         //neptune -> Character_Dave
         //jove -> Pod
         this.Hal = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Hal').setOrigin(0, 1);
-        this.Character_Dave_Scene1 = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Character_Dave_Scene1').setOrigin(0, 1);
+        this.Dave = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Character_Dave_Scene1').setOrigin(0, 1);
         this.Character_Dave = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Character_Dave').setOrigin(0, 1);
         this.Pod = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Pod').setOrigin(0, 1);
 
@@ -137,7 +137,7 @@ class Scene1_Dialog extends Phaser.Scene {
                 // tween in new speaker's image
                 this.tweens.add({
                     targets: this[this.dialogSpeaker],
-                    x: this.DBOX_X + 50,
+                    x: this.DBOX_X + 30,
                     duration: this.tweenDuration,
                     ease: 'Linear'
                 });
