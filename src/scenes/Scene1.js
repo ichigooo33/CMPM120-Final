@@ -34,6 +34,7 @@ class Scene1 extends Phaser.Scene
         this.mainCam = this.cameras.main;
         this.mainCam.setBounds(0, 0, this.sceneAreaSize * 3, this.sceneAreaSize * 3);
         this.mainCam.centerOn(this.dave.x, this.dave.y);
+        this.mainCam.setBackgroundColor("rgb(0, 0, 0)");
 
         //set collision
         wallLayer.setCollisionByProperty({collides: true});
@@ -63,10 +64,12 @@ class Scene1 extends Phaser.Scene
         if(cursors.left.isDown)
         {
             this.direction.x = -1;
+            this.dave.setFlip(true, false);
         }
         else if(cursors.right.isDown)
         {
             this.direction.x = 1;
+            this.dave.resetFlip();
         }
         if(cursors.up.isDown)
         {
@@ -93,7 +96,7 @@ class Scene1 extends Phaser.Scene
                 targets: obj,
                 duration: this.scrollDuration,
                 ease: this.scrollStyle,
-                x: { from: obj.x, to: obj.x + obj.width },
+                x: { from: obj.x, to: obj.x + obj.width + 1},
                 onComplete: function() {
                     obj.scrollLock = false; // unlock player
                 }
@@ -109,7 +112,7 @@ class Scene1 extends Phaser.Scene
                 targets: obj,
                 duration: this.scrollDuration,
                 ease: this.scrollStyle,
-                x: { from: obj.x, to: obj.x - obj.width },
+                x: { from: obj.x, to: obj.x - obj.width - 1},
                 onComplete: function() {
                     obj.scrollLock = false; // unlock player
                 }
@@ -126,7 +129,7 @@ class Scene1 extends Phaser.Scene
                 targets: obj,
                 duration: this.scrollDuration,
                 ease: this.scrollStyle,
-                y: { from: obj.y, to: obj.y + obj.height },
+                y: { from: obj.y, to: obj.y + obj.height + 1},
                 onComplete: function() {
                     obj.scrollLock = false; // unlock player
                 }
@@ -142,7 +145,7 @@ class Scene1 extends Phaser.Scene
                 targets: obj,
                 duration: this.scrollDuration,
                 ease: this.scrollStyle,
-                y: { from: obj.y, to: obj.y - obj.height },
+                y: { from: obj.y, to: obj.y - obj.height - 1},
                 onComplete: function() {
                     obj.scrollLock = false; // unlock player
                 }
