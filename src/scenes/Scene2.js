@@ -12,8 +12,8 @@ class Scene2 extends Phaser.Scene
         //set scene variables
         this.sceneWidth = 1200;
         this.sceneHeight = 360;
-        this.podAcceleration = 50;
-        this.daveAcceleration = 25;
+        this.podAcceleration = 20;
+        this.daveAcceleration = 10;
         this.currentMainCamZoom = 1;
         this.targetMainCamZoom = 0.5;
 
@@ -34,6 +34,7 @@ class Scene2 extends Phaser.Scene
         this.mainCam = this.cameras.main;
         this.mainCam.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
         this.mainCam.startFollow(this.dave, false, 0.2, 0.2);
+        this.mainCam.setZoom(0.8);
 
         //set world bounds
         this.physics.world.bounds.setTo(0, 0, this.sceneWidth, this.sceneHeight);
@@ -54,6 +55,8 @@ class Scene2 extends Phaser.Scene
         if(this.isInPod)
         {
             this.tempAcceleration = this.podAcceleration;
+            this.dave.x = this.pod.x;
+            this.dave.y = this.pod.y;
         }
         else
         {

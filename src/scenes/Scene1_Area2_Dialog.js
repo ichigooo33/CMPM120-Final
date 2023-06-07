@@ -1,6 +1,6 @@
-class Scene1_Dialog extends Phaser.Scene {
+class Scene1_Area2_Dialog extends Phaser.Scene {
     constructor() {
-        super("scene1_dialog");
+        super("scene1_area2_dialog");
 
         // dialog constants
         this.DBOX_X = 0;			    // dialog box x-position
@@ -39,8 +39,10 @@ class Scene1_Dialog extends Phaser.Scene {
     }
 
     create() {
+        console.log("----- Enter Scene 1 Area 2 Dialogue -----"); 
+
         // parse dialog from JSON file
-        this.dialog = this.cache.json.get('dialog');
+        this.dialog = this.cache.json.get('Scene1_Area2_dialog');
         //console.log(this.dialog);
 
         // add dialog box sprite
@@ -115,10 +117,11 @@ class Scene1_Dialog extends Phaser.Scene {
                 });
             }
             // make text box invisible
-            this.dialogbox.visible = false;
+            //this.dialogbox.visible = false;
 
             //close the scene
             dialogFinish = true;
+            this.resetStatus();
             this.scene.sendToBack().sleep();
         } else {
             // if not, set current speaker
@@ -179,5 +182,14 @@ class Scene1_Dialog extends Phaser.Scene {
             // set past speaker
             this.dialogLastSpeaker = this.dialogSpeaker;
         }
+    }
+
+    resetStatus()
+    {
+        this.dialogConvo = 0;			// current "conversation"
+        this.dialogLine = 0;			// current line of conversation
+        this.dialogSpeaker = null;		// current speaker
+        this.dialogLastSpeaker = null;	// last speaker
+        this.dialogTyping = false;		// flag to lock player input while text is "typing"
     }
 }

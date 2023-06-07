@@ -1,0 +1,33 @@
+[
+	[
+		{
+			"speaker" : "Dave",
+			"dialog" : "Hey HAL, could you run a diagnostic check on all ship systems?",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Hal",
+			"dialog" : "Of course, Dave. Initiating diagnostic scan now. Plese stand by.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Hal",
+			"dialog" : "MY F.P.C. shows an impending failure of the antenna orientation unit."
+		},
+		{
+			"speaker" : "Dave",
+			"dialog" : "Let me see the antenna alignment display, please.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Hal",
+			"dialog" : "The unit is still operational, Dave. but it will fail within seventy-two hours.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Dave",
+			"dialog" : " I understand Hal. We'll take care of it. Please, let me have the hardcopy.",
+			"newSpeaker" : "true"
+		}
+	]
+]

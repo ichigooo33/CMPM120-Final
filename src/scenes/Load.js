@@ -22,7 +22,8 @@ class Load extends Phaser.Scene
         this.load.path = "assets/";
 
         // load JSON (dialog)
-        this.load.json('dialog', 'json/dialog.json');
+        this.load.json('Scene1_Area1_dialog', 'json/Scene1_Area1_dialog.json');
+        this.load.json('Scene1_Area2_dialog', 'json/Scene1_Area2_dialog.json');
 
         // load bitmap font
         this.load.bitmapFont('gem_font', 'font/gem.png', 'font/gem.xml');

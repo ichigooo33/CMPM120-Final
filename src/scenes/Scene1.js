@@ -42,6 +42,7 @@ class Scene1 extends Phaser.Scene
         //define cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+        keyT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
 
         //set collision
         wallLayer.setCollisionByProperty({collides: true});
@@ -53,19 +54,43 @@ class Scene1 extends Phaser.Scene
 
         //define wolrd physics bounds
         this.physics.world.setBounds(0, 0, this.sceneAreaSize * 3, this.sceneAreaSize * 3);
+
+        //text config
+        let tempTextConfig = {
+            fontFamily: "Courier",
+            fontSize: "15px",
+            color: "#843605",
+            align: "left",
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 320
+        }
+
+        //temp text
+        this.turotialText1 = this.add.text(w * 0.05 + this.mainCam.scrollX, h * 0.80 + this.mainCam.scrollY, "arrow key to move", tempTextConfig);
+        this.turotialText2 = this.add.text(w * 0.05 + this.mainCam.scrollX, h * 0.85 + this.mainCam.scrollY, "(R) to dialog", tempTextConfig);
+        this.turotialText3 = this.add.text(w * 0.05 + this.mainCam.scrollX, h * 0.90 + this.mainCam.scrollY, "(T) to next scene", tempTextConfig);
     }
 
     update()
     {
-        if(!this.scene.isActive('scene1_dialog'))
+        if(!this.scene.isActive('scene1_area2_dialog'))
         {
             this.daveMove();
             this.checkCamBounds(this.dave, this.mainCam);
 
             if(Phaser.Input.Keyboard.JustDown(keyR) && !dialogFinish)
             {
-                this.scene.run("scene1_dialog");
+                this.dave.setVelocity(0);
+                this.scene.run("scene1_area2_dialog");
             }
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(keyT))
+        {
+            this.scene.start("scene2");
         }
     }
 
@@ -115,6 +140,9 @@ class Scene1 extends Phaser.Scene
             });
             // pan camera
             cam.pan(cam.scrollX + cam.centerX + cam.width, cam.scrollY + cam.centerY, this.scrollDuration, this.scrollStyle);
+
+            //reset dialog
+            dialogFinish = false;
         } else if(obj.x - obj.width/2 < cam.scrollX) {
             // PLAYER HITS LEFT EDGE (SCROLL L->R)
             // lock player
@@ -131,6 +159,9 @@ class Scene1 extends Phaser.Scene
             });
             // pan camera
             cam.pan(cam.scrollX - cam.centerX, cam.scrollY + cam.centerY, this.scrollDuration, this.scrollStyle);
+
+            //reset dialog
+            dialogFinish = false;
         } else if(obj.y + obj.height/2 > cam.height + cam.scrollY) {
             // PLAYER HITS BOTTOM EDGE (SCROLL BOTTOM -> TOP)
             // lock player
@@ -148,6 +179,9 @@ class Scene1 extends Phaser.Scene
             });
             // pan camera
             cam.pan(cam.scrollX + cam.centerX, cam.scrollY + cam.centerY + cam.height, this.scrollDuration, this.scrollStyle);
+
+            //reset dialog
+            dialogFinish = false;
         } else if(obj.y - obj.height/2 < cam.scrollY) {
             // PLAYER HITS TOP EDGE (SCROLL TOP->BOTTOM)
             // lock player
@@ -164,18 +198,27 @@ class Scene1 extends Phaser.Scene
             });
             // pan camera
             cam.pan(cam.scrollX + cam.centerX, cam.scrollY - cam.centerY, this.scrollDuration, this.scrollStyle);
+
+            //reset dialog
+            dialogFinish = false;
         }
         else if(obj.y - obj.height/2 <= 0)
         {
             //PLAYER HITS TOP EDGE OF THE SPACESHIP, MOVE PLAYER TO THE BUTTOM EDGE OF THE SPACESHIP
             cam.setScroll(cam.scrollX, this.sceneAreaSize * 2);
             obj.y = cam.scrollY + cam.height - obj.height/2 - 1;
+
+            //reset dialog
+            dialogFinish = false;
         }
         else if(obj.y + obj.height / 2 >= this.sceneAreaSize * 3)
         {
             //PLAYER HITS BUTTOM EDGE OF THE SPACESHIP, MOVE PLAYER TO THE TOP EDGE OF THE SPACESHIP
             cam.setScroll(cam.scrollX, 0);
             obj.y = cam.scrollY + obj.height/2 + 1;
+
+            //reset dialog
+            dialogFinish = false;
         }
     }
 
