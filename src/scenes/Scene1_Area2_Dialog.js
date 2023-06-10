@@ -9,7 +9,7 @@ class Scene1_Area2_Dialog extends Phaser.Scene {
 
         this.TEXT_X = w * 0.1;			// text w/in dialog box x-position
         this.TEXT_Y = h * 0.85;			// text w/in dialog box y-position
-        this.TEXT_SIZE = 8;		// text font size (in pixels)
+        this.TEXT_SIZE = 20;		// text font size (in pixels)
         this.TEXT_MAX_WIDTH = w * 0.8;	// max width of text within box
 
         this.NEXT_TEXT = '[SPACE]';	// text to display for next prompt
@@ -36,6 +36,8 @@ class Scene1_Area2_Dialog extends Phaser.Scene {
 
         this.OFFSCREEN_X = -500;        // x,y values to place characters offscreen
         this.OFFSCREEN_Y = 1000;
+
+        this.isReadyForRestart = false;
     }
 
     create() {
@@ -46,7 +48,7 @@ class Scene1_Area2_Dialog extends Phaser.Scene {
         //console.log(this.dialog);
 
         // add dialog box sprite
-        this.dialogbox = this.add.sprite(this.DBOX_X, this.DBOX_Y, 'DialogBox').setOrigin(0);
+        this.dialogbox = this.add.sprite(this.DBOX_X, this.DBOX_Y, 'DialogBox').setOrigin(0).setScale(2);
 
         // initialize dialog text objects (with no text)
         this.dialogText = this.add.bitmapText(this.TEXT_X, this.TEXT_Y, this.DBOX_FONT, '', this.TEXT_SIZE);
@@ -71,6 +73,13 @@ class Scene1_Area2_Dialog extends Phaser.Scene {
     }
 
     update() {
+        //initialze if just restart
+        if(this.isReadyForRestart)
+        {
+            this.isReadyForRestart = false;
+            this.typeText();
+        }
+
         // check for spacebar press
         if(Phaser.Input.Keyboard.JustDown(this.keySpace) && !this.dialogTyping) {
             // trigger dialog
@@ -106,23 +115,30 @@ class Scene1_Area2_Dialog extends Phaser.Scene {
         if(this.dialogConvo >= this.dialog.length) {
             // here I'm simply "exiting" the last speaker and removing the dialog box,
             // but you could build other logic to change game states here
-            console.log('End of Conversations');
+            console.log('----- End Scene 1 Area 2 Dialogue -----');
             // tween out prior speaker's image
             if(this.dialogLastSpeaker) {
                 this.tweens.add({
                     targets: this[this.dialogLastSpeaker],
                     x: this.OFFSCREEN_X,
                     duration: this.tweenDuration,
-                    ease: 'Linear'
+                    ease: 'Linear',
+                    onComplete: () => {
+                        //close the scene
+                        dialogFinish = true;
+                        this.resetStatus();
+                        this.scene.sleep();
+                    }
                 });
             }
             // make text box invisible
             //this.dialogbox.visible = false;
 
             //close the scene
-            dialogFinish = true;
-            this.resetStatus();
-            this.scene.sendToBack().sleep();
+            // dialogFinish = true;
+            // this.resetStatus();
+            // this.scene.sleep();
+            //this.scene.sendToBack().sleep();
         } else {
             // if not, set current speaker
             this.dialogSpeaker = this.dialog[this.dialogConvo][this.dialogLine]['speaker'];
@@ -186,10 +202,11 @@ class Scene1_Area2_Dialog extends Phaser.Scene {
 
     resetStatus()
     {
-        this.dialogConvo = 0;			// current "conversation"
-        this.dialogLine = 0;			// current line of conversation
-        this.dialogSpeaker = null;		// current speaker
-        this.dialogLastSpeaker = null;	// last speaker
-        this.dialogTyping = false;		// flag to lock player input while text is "typing"
+        this.dialogConvo = 0;			                                                    // current "conversation"
+        this.dialogLine = 0;			                                                    // current line of conversation
+        this.dialogSpeaker = this.dialog[this.dialogConvo][this.dialogLine]['speaker'];		// current speaker
+        this.dialogLastSpeaker = null;	                                                    // last speaker
+        this.dialogTyping = false;		                                                    // flag to lock player input while text is "typing"
+        this.isReadyForRestart = true;
     }
 }

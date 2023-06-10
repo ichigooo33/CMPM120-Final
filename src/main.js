@@ -10,8 +10,8 @@ let config =
 {
     parent: "gameViewport",
     type: Phaser.CANVAS,
-    width: 320,
-    height: 320,
+    width: 640,
+    height: 640,
     render: {
         pixelArt: true
     },

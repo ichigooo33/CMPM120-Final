@@ -10,17 +10,17 @@ class Scene2 extends Phaser.Scene
         console.log("----- Enter Scene 2 -----");
 
         //set scene variables
-        this.sceneWidth = 1200;
-        this.sceneHeight = 360;
-        this.podAcceleration = 20;
-        this.daveAcceleration = 10;
+        this.sceneWidth = 2400;
+        this.sceneHeight = 720;
+        this.podAcceleration = 10;
+        this.daveAcceleration = 5;
         this.currentMainCamZoom = 1;
         this.targetMainCamZoom = 0.5;
 
         this.isInPod = true;
 
         //set background
-        this.add.image(0, 0, "Space_bg").setOrigin(0, 0);
+        this.add.image(0, 0, "Space_bg").setOrigin(0, 0).setScale(2);
 
         //set player
         this.dave = this.physics.add.sprite(centerX, centerY, "Character_Dave");

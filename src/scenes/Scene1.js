@@ -13,8 +13,8 @@ class Scene1 extends Phaser.Scene
         dialogFinish = false;
 
         //define scene variables
-        this.sceneAreaSize = 320;
-        this.daveSpeed = 150;
+        this.sceneAreaSize = 640;
+        this.daveSpeed = 200;
         this.scrollDuration = 400;
         this.scrollStyle = 'Quad';
 
@@ -58,20 +58,26 @@ class Scene1 extends Phaser.Scene
         //text config
         let tempTextConfig = {
             fontFamily: "Courier",
-            fontSize: "15px",
+            fontSize: "28px",
             color: "#843605",
             align: "left",
             padding: {
                 top: 5,
                 bottom: 5,
             },
-            fixedWidth: 320
+            fixedWidth: 480
         }
 
         //temp text
-        this.turotialText1 = this.add.text(w * 0.05 + this.mainCam.scrollX, h * 0.80 + this.mainCam.scrollY, "arrow key to move", tempTextConfig);
-        this.turotialText2 = this.add.text(w * 0.05 + this.mainCam.scrollX, h * 0.85 + this.mainCam.scrollY, "(R) to dialog", tempTextConfig);
-        this.turotialText3 = this.add.text(w * 0.05 + this.mainCam.scrollX, h * 0.90 + this.mainCam.scrollY, "(T) to next scene", tempTextConfig);
+        this.turotialText1 = this.add.text(w * 0.1 + this.mainCam.scrollX, h * 0.80 + this.mainCam.scrollY, "arrow key to move", tempTextConfig);
+        this.turotialText2 = this.add.text(w * 0.1 + this.mainCam.scrollX, h * 0.85 + this.mainCam.scrollY, "(R) to dialog", tempTextConfig);
+        this.turotialText3 = this.add.text(w * 0.1 + this.mainCam.scrollX, h * 0.9 + this.mainCam.scrollY, "(T) to next scene", tempTextConfig);
+
+        //add audio
+        this.bgm1 = this.sound.add("Scene1_bgm1");
+        this.bgm2 = this.sound.add("Scene1_bgm2");
+        this.time.addEvent({ delay: 3000, callback: this.playbgm1, callbackScope: this, repeat: -1 });
+        this.time.addEvent({ delay: 5200, callback: this.playbgm2, callbackScope: this, repeat: -1 });
     }
 
     update()
@@ -143,6 +149,9 @@ class Scene1 extends Phaser.Scene
 
             //reset dialog
             dialogFinish = false;
+
+            //update text position
+            this.updateTextPosition();
         } else if(obj.x - obj.width/2 < cam.scrollX) {
             // PLAYER HITS LEFT EDGE (SCROLL L->R)
             // lock player
@@ -159,9 +168,6 @@ class Scene1 extends Phaser.Scene
             });
             // pan camera
             cam.pan(cam.scrollX - cam.centerX, cam.scrollY + cam.centerY, this.scrollDuration, this.scrollStyle);
-
-            //reset dialog
-            dialogFinish = false;
         } else if(obj.y + obj.height/2 > cam.height + cam.scrollY) {
             // PLAYER HITS BOTTOM EDGE (SCROLL BOTTOM -> TOP)
             // lock player
@@ -230,5 +236,30 @@ class Scene1 extends Phaser.Scene
     talking()
     {
         this.scene.run("scene1_dialog");
+    }
+
+    updateTextPosition()
+    {
+        //BUG here! Doesn't work
+        this.turotialText1.setPosition(w * 0.1 + this.mainCam.scrollX, h * 0.8 + this.mainCam.scrollY);
+
+        this.turotialText1.x = w * 0.1 + this.mainCam.scrollX;
+        this.turotialText1.y = h * 0.8 + this.mainCam.scrollY;
+
+        this.turotialText2.x = w * 0.1 + this.mainCam.scrollX; 
+        this.turotialText2.y = h * 0.85 + this.mainCam.scrollY;
+
+        this.turotialText3.x = w * 0.1 + this.mainCam.scrollX; 
+        this.turotialText3.y = h * 0.9 + this.mainCam.scrollY;
+    }
+
+    playbgm1()
+    {
+        this.bgm1.play();
+    }
+
+    playbgm2()
+    {
+        this.bgm2.play();
     }
 }

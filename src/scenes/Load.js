@@ -38,6 +38,9 @@ class Load extends Phaser.Scene
         this.load.image("Hal", "Hal.png");
         this.load.image("DialogBox", "DialogBox.png");
 
+        this.load.audio("Scene1_bgm1", "Scene1_bgm1.wav");
+        this.load.audio("Scene1_bgm2", "Scene1_bgm2.wav");
+
         //load scene2 asset
         this.load.image("Space_bg", "Space_bg.png");
         this.load.image("Pod", "Pod.png");
