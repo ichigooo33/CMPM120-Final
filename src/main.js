@@ -38,7 +38,7 @@ let config =
         //autoCenter: Phaser.Scale.VERTICALLY,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [Load, Menu, Scene1, Scene1_Area2_Dialog, Scene2]
+    scene: [Load, Menu, Scene1, Scene1_IntroDialog, Scene1_Area2_Dialog, Scene2]
 };
 
 let game = new Phaser.Game(config);

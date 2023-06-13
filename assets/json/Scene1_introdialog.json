@@ -1,0 +1,27 @@
+[
+	[
+		{
+			"speaker" : "Hal",
+			"dialog" : "Hey Dave. Good morning.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Hal",
+			"dialog" : "Everything is working properly on Discovory One."
+		},
+		{
+			"speaker" : "Hal",
+			"dialog" : "To make you feel better after sleep, Dave, I suggests you to walk around the ship (Using Arrow Keys) to stretch."
+		},
+		{
+			"speaker" : "Dave",
+			"dialog" : "Thank you Hal.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Hal",
+			"dialog" : "Please don't forget to check in with me AFTER your morning stretch (Press R to check other dialogue)",
+			"newSpeaker" : "true"
+		}
+	]
+]

@@ -17,6 +17,7 @@ class Scene1 extends Phaser.Scene
         this.daveSpeed = 200;
         this.scrollDuration = 400;
         this.scrollStyle = 'Quad';
+        this.introDialogueFinished = false;
 
         //define tilemap
         const map = this.add.tilemap("scene1_tileMapJSON");
@@ -74,15 +75,21 @@ class Scene1 extends Phaser.Scene
         this.turotialText3 = this.add.text(w * 0.1 + this.mainCam.scrollX, h * 0.9 + this.mainCam.scrollY, "(T) to next scene", tempTextConfig);
 
         //add audio
-        this.bgm1 = this.sound.add("Scene1_bgm1");
-        this.bgm2 = this.sound.add("Scene1_bgm2");
+        this.bgm1 = this.sound.add("Scene1_bgm1").setVolume(0.3);
+        this.bgm2 = this.sound.add("Scene1_bgm2").setVolume(0.2);
         this.time.addEvent({ delay: 3000, callback: this.playbgm1, callbackScope: this, repeat: -1 });
         this.time.addEvent({ delay: 5200, callback: this.playbgm2, callbackScope: this, repeat: -1 });
     }
 
     update()
     {
-        if(!this.scene.isActive('scene1_area2_dialog'))
+        if(!this.introDialogueFinished)
+        {
+            this.introDialogueFinished = true;
+            this.scene.run("scene1_introdialog");
+        }
+        
+        if(!this.scene.isActive('scene1_area2_dialog') && !this.scene.isActive('scene1_introdialog'))
         {
             this.daveMove();
             this.checkCamBounds(this.dave, this.mainCam);
@@ -93,7 +100,7 @@ class Scene1 extends Phaser.Scene
                 this.scene.run("scene1_area2_dialog");
             }
         }
-
+        
         if(Phaser.Input.Keyboard.JustDown(keyT))
         {
             this.scene.start("scene2");
