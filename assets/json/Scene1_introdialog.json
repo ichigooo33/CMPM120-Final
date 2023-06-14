@@ -11,7 +11,7 @@
 		},
 		{
 			"speaker" : "Hal",
-			"dialog" : "To make you feel better after sleep, Dave, I suggests you to walk around the ship (Using Arrow Keys) to stretch."
+			"dialog" : "To make you feel better after sleep, Dave, I suggests you to walk around the ship (Use Arrow Keys) to stretch."
 		},
 		{
 			"speaker" : "Dave",
@@ -20,7 +20,7 @@
 		},
 		{
 			"speaker" : "Hal",
-			"dialog" : "Please don't forget to check in with me AFTER your morning stretch (Press R to check other dialogue)",
+			"dialog" : "Please don't forget to check in with me AFTER your morning stretch (Move to other areas and press R to check other dialogue)",
 			"newSpeaker" : "true"
 		}
 	]

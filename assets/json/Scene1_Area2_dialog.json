@@ -28,6 +28,10 @@
 			"speaker" : "Dave",
 			"dialog" : " I understand Hal. We'll take care of it. Please, let me have the hardcopy.",
 			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Dave",
+			"dialog" : " It's time to go to the RIGHT side."
 		}
 	]
 ]

@@ -1,0 +1,49 @@
+[
+	[
+		{
+			"speaker" : "Dave",
+			"dialog" : " Well, we'd better get out there and stick in another unit.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Frank",
+			"dialog" : "It's the last one.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Dave",
+			"dialog" : " Well, now that we've got one that's actually failed, we should be able to figure out what's happened and fix it.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Frank",
+			"dialog" : " There's something wrong with the flip-bolts, Dave. You must have tightened them too much.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Dave",
+			"dialog" : " I didn't do that Frank. I took particular care not to freeze them.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Frank",
+			"dialog" : " I guess you don't know your own strength, old boy.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Dave",
+			"dialog" : " I guess not.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Frank",
+			"dialog" : "I think I'll have to go out and burn them off.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Dave",
+			"dialog" : " Roger.",
+			"newSpeaker" : "true"
+		}
+	]
+]

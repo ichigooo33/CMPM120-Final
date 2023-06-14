@@ -1,0 +1,13 @@
+[
+	[
+		{
+			"speaker" : "Hal",
+			"dialog" : "Hey Dave. I think it's better to leave pod to replace the device.",
+			"newSpeaker" : "true"
+		},
+		{
+			"speaker" : "Hal",
+			"dialog" : "Pod is not designed for precise operations. (Press (R) to leave the pod)"
+		}
+	]
+]

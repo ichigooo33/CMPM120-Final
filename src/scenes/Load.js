@@ -24,6 +24,8 @@ class Load extends Phaser.Scene
         // load JSON (dialog)
         this.load.json('Scene1_Area2_dialog', 'json/Scene1_Area2_dialog.json');
         this.load.json('Scene1_introdialog', 'json/Scene1_introdialog.json');
+        this.load.json('Scene2_dialog', 'json/Scene2_dialog.json');
+        this.load.json('Scene3_dialog', 'json/Scene3_dialog.json');
 
         // load bitmap font
         this.load.bitmapFont('gem_font', 'font/gem.png', 'font/gem.xml');
@@ -49,6 +51,11 @@ class Load extends Phaser.Scene
         //load scene2 asset
         this.load.image("Space_bg", "Space_bg.png");
         this.load.image("Pod", "Pod.png");
+        this.load.audio("Scene2_Noise", "Scene2_Noise.wav");
+
+        //load scene3 asset
+        this.load.image("Scene3_bg", "Scene3_bg.png");
+        this.load.image("Character_Frank_Scene3", "Character_Frank.png");
     }
 
     create()

@@ -1,6 +1,7 @@
-class Scene1_IntroDialog extends Phaser.Scene {
+class Scene3 extends Phaser.Scene
+{
     constructor() {
-        super("scene1_introdialog");
+        super("scene3");
 
         // dialog constants
         this.DBOX_X = 0;			    // dialog box x-position
@@ -38,14 +39,18 @@ class Scene1_IntroDialog extends Phaser.Scene {
         this.OFFSCREEN_Y = 1000;
 
         this.isReadyForRestart = false;
+        this.dialogFinished = false;
     }
 
     create() {
-        console.log("----- Enter Scene 1 Intro Dialogue -----"); 
+        console.log("----- Enter Scene 3 -----"); 
 
         // parse dialog from JSON file
-        this.dialog = this.cache.json.get('Scene1_introdialog');
+        this.dialog = this.cache.json.get('Scene3_dialog');
         //console.log(this.dialog);
+
+        //add background
+        this.bg = this.add.sprite(0, 0, 'Scene3_bg').setOrigin(0);
 
         // add dialog box sprite
         this.dialogbox = this.add.sprite(this.DBOX_X, this.DBOX_Y, 'DialogBox').setOrigin(0).setScale(2);
@@ -64,9 +69,26 @@ class Scene1_IntroDialog extends Phaser.Scene {
         this.Dave = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Character_Dave_Scene1').setOrigin(0, 1);
         this.Character_Dave = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Character_Dave').setOrigin(0, 1);
         this.Pod = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Pod').setOrigin(0, 1);
+        this.Frank = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'Character_Frank_Scene3').setOrigin(0, 1);
+
+        //Add text
+        let TextConfig = {
+            fontFamily: "Impact",
+            fontSize: "28px",
+            color: "#FFFFFF",
+            align: "center",
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 480
+        }
+        this.restartText = this.add.text(w * 0.4, h * 0.8, "Press (R) to title screen", TextConfig);
+        this.restartText.alpha = 0;
 
         // input
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
 
         // start dialog
         this.typeText();        
@@ -78,6 +100,11 @@ class Scene1_IntroDialog extends Phaser.Scene {
         {
             this.isReadyForRestart = false;
             this.typeText();
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(keyR) && this.dialogFinished)
+        {
+            this.scene.start("menuScene");
         }
 
         // check for spacebar press
@@ -115,7 +142,7 @@ class Scene1_IntroDialog extends Phaser.Scene {
         if(this.dialogConvo >= this.dialog.length) {
             // here I'm simply "exiting" the last speaker and removing the dialog box,
             // but you could build other logic to change game states here
-            console.log('----- End Scene 1 Intro Dialogue -----');
+            console.log('----- End Scene 3 -----');
             // tween out prior speaker's image
             if(this.dialogLastSpeaker) {
                 this.tweens.add({
@@ -126,14 +153,13 @@ class Scene1_IntroDialog extends Phaser.Scene {
                     onComplete: () => {
                         //close the scene
                         dialogFinish = true;
-                        this.resetStatus();
-                        this.scene.sleep();
                     }
                 });
             }
             // make text box invisible
-            //this.dialogbox.visible = false;
-
+            this.dialogbox.visible = false;
+            this.dialogFinished = true;
+            this.restartText.alpha = 1;
             //close the scene
             // dialogFinish = true;
             // this.resetStatus();
@@ -198,15 +224,5 @@ class Scene1_IntroDialog extends Phaser.Scene {
             // set past speaker
             this.dialogLastSpeaker = this.dialogSpeaker;
         }
-    }
-
-    resetStatus()
-    {
-        this.dialogConvo = 0;			                                                    // current "conversation"
-        this.dialogLine = 0;			                                                    // current line of conversation
-        this.dialogSpeaker = this.dialog[this.dialogConvo][this.dialogLine]['speaker'];		// current speaker
-        this.dialogLastSpeaker = null;	                                                    // last speaker
-        this.dialogTyping = false;		                                                    // flag to lock player input while text is "typing"
-        this.isReadyForRestart = true;
     }
 }

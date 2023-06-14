@@ -43,24 +43,15 @@ class Scene1 extends Phaser.Scene
         //define cursor key input
         cursors = this.input.keyboard.createCursorKeys();
         keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        keyT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
-
-        //set collision
-        wallLayer.setCollisionByProperty({collides: true});
-        bedLayer.setCollisionByProperty({collides: true});
-        computerLayer.setCollisionByProperty({collides: true});
-        this.physics.add.collider(this.dave, wallLayer);
-        this.physics.add.collider(this.dave, bedLayer);
-        this.physics.add.collider(this.dave, computerLayer, this.interactWithComputer);
 
         //define wolrd physics bounds
         this.physics.world.setBounds(0, 0, this.sceneAreaSize * 3, this.sceneAreaSize * 3);
 
         //text config
         let tempTextConfig = {
-            fontFamily: "Courier",
+            fontFamily: "Impact",
             fontSize: "28px",
-            color: "#843605",
+            color: "#000000",
             align: "left",
             padding: {
                 top: 5,
@@ -70,15 +61,22 @@ class Scene1 extends Phaser.Scene
         }
 
         //temp text
-        this.turotialText1 = this.add.text(w * 0.1 + this.mainCam.scrollX, h * 0.80 + this.mainCam.scrollY, "arrow key to move", tempTextConfig);
-        this.turotialText2 = this.add.text(w * 0.1 + this.mainCam.scrollX, h * 0.85 + this.mainCam.scrollY, "(R) to dialog", tempTextConfig);
-        this.turotialText3 = this.add.text(w * 0.1 + this.mainCam.scrollX, h * 0.9 + this.mainCam.scrollY, "(T) to next scene", tempTextConfig);
+        this.turotialText1 = this.add.text(w * 0.05 + this.mainCam.scrollX, h * 0.80 + this.mainCam.scrollY, "arrow key to move", tempTextConfig);
+        this.turotialText2 = this.add.text(w * 0.05 + this.mainCam.scrollX, h * 0.85 + this.mainCam.scrollY, "(R) to dialog", tempTextConfig);
 
         //add audio
         this.bgm1 = this.sound.add("Scene1_bgm1").setVolume(0.3);
         this.bgm2 = this.sound.add("Scene1_bgm2").setVolume(0.2);
         this.time.addEvent({ delay: 3000, callback: this.playbgm1, callbackScope: this, repeat: -1 });
         this.time.addEvent({ delay: 5200, callback: this.playbgm2, callbackScope: this, repeat: -1 });
+
+        //set collision
+        wallLayer.setCollisionByProperty({collides: true});
+        bedLayer.setCollisionByProperty({collides: true});
+        computerLayer.setCollisionByProperty({collides: true});
+        this.physics.add.collider(this.dave, wallLayer);
+        this.physics.add.collider(this.dave, bedLayer);
+        this.physics.add.collider(this.dave, computerLayer);
     }
 
     update()
@@ -88,8 +86,13 @@ class Scene1 extends Phaser.Scene
             this.introDialogueFinished = true;
             this.scene.run("scene1_introdialog");
         }
+
+        if(this.dave.x >= this.sceneAreaSize * 3 - this.dave.width / 2)
+        {
+            this.scene.start("scene2");
+        }
         
-        if(!this.scene.isActive('scene1_area2_dialog') && !this.scene.isActive('scene1_introdialog'))
+        if(!this.scene.isActive('scene1_area2_dialog') && !this.scene.isActive('scene1_introdialog') && !this.scene.isActive('scene1_enddialog'))
         {
             this.daveMove();
             this.checkCamBounds(this.dave, this.mainCam);
@@ -99,11 +102,6 @@ class Scene1 extends Phaser.Scene
                 this.dave.setVelocity(0);
                 this.scene.run("scene1_area2_dialog");
             }
-        }
-        
-        if(Phaser.Input.Keyboard.JustDown(keyT))
-        {
-            this.scene.start("scene2");
         }
     }
 
@@ -156,9 +154,6 @@ class Scene1 extends Phaser.Scene
 
             //reset dialog
             dialogFinish = false;
-
-            //update text position
-            this.updateTextPosition();
         } else if(obj.x - obj.width/2 < cam.scrollX) {
             // PLAYER HITS LEFT EDGE (SCROLL L->R)
             // lock player
@@ -175,6 +170,9 @@ class Scene1 extends Phaser.Scene
             });
             // pan camera
             cam.pan(cam.scrollX - cam.centerX, cam.scrollY + cam.centerY, this.scrollDuration, this.scrollStyle);
+
+            //reset dialog
+            dialogFinish = false;
         } else if(obj.y + obj.height/2 > cam.height + cam.scrollY) {
             // PLAYER HITS BOTTOM EDGE (SCROLL BOTTOM -> TOP)
             // lock player
@@ -235,29 +233,9 @@ class Scene1 extends Phaser.Scene
         }
     }
 
-    interactWithComputer()
-    {
-        console.log("Interact with computer");
-    }
-
     talking()
     {
         this.scene.run("scene1_dialog");
-    }
-
-    updateTextPosition()
-    {
-        //BUG here! Doesn't work
-        this.turotialText1.setPosition(w * 0.1 + this.mainCam.scrollX, h * 0.8 + this.mainCam.scrollY);
-
-        this.turotialText1.x = w * 0.1 + this.mainCam.scrollX;
-        this.turotialText1.y = h * 0.8 + this.mainCam.scrollY;
-
-        this.turotialText2.x = w * 0.1 + this.mainCam.scrollX; 
-        this.turotialText2.y = h * 0.85 + this.mainCam.scrollY;
-
-        this.turotialText3.x = w * 0.1 + this.mainCam.scrollX; 
-        this.turotialText3.y = h * 0.9 + this.mainCam.scrollY;
     }
 
     playbgm1()

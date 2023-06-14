@@ -1,6 +1,6 @@
-class Scene1_IntroDialog extends Phaser.Scene {
+class Scene2_Dialog extends Phaser.Scene {
     constructor() {
-        super("scene1_introdialog");
+        super("scene2_dialog");
 
         // dialog constants
         this.DBOX_X = 0;			    // dialog box x-position
@@ -41,10 +41,10 @@ class Scene1_IntroDialog extends Phaser.Scene {
     }
 
     create() {
-        console.log("----- Enter Scene 1 Intro Dialogue -----"); 
+        console.log("----- Enter Scene 2 Dialogue -----"); 
 
         // parse dialog from JSON file
-        this.dialog = this.cache.json.get('Scene1_introdialog');
+        this.dialog = this.cache.json.get('Scene2_dialog');
         //console.log(this.dialog);
 
         // add dialog box sprite
@@ -115,7 +115,7 @@ class Scene1_IntroDialog extends Phaser.Scene {
         if(this.dialogConvo >= this.dialog.length) {
             // here I'm simply "exiting" the last speaker and removing the dialog box,
             // but you could build other logic to change game states here
-            console.log('----- End Scene 1 Intro Dialogue -----');
+            console.log('----- End Scene 2 Dialogue -----');
             // tween out prior speaker's image
             if(this.dialogLastSpeaker) {
                 this.tweens.add({

@@ -19,8 +19,12 @@ class Scene2 extends Phaser.Scene
 
         this.isInPod = true;
 
+        this.dialogFinish = false;
+
         //set background
-        this.add.image(0, 0, "Space_bg").setOrigin(0, 0).setScale(2);
+        this.add.image(0, 0, "Space_bg").setOrigin(0, 0);
+        this.bgm = this.sound.add("Scene2_Noise").setVolume(0.3);
+        this.time.addEvent({ delay: 3000, callback: this.playbgm, callbackScope: this, repeat: -1 });
 
         //set player
         this.dave = this.physics.add.sprite(centerX, centerY, "Character_Dave");
@@ -41,12 +45,52 @@ class Scene2 extends Phaser.Scene
 
         //define cursor key input
         cursors = this.input.keyboard.createCursorKeys();
-        
+        keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     }
 
     update()
     {
-        this.applyMove();
+        if(this.isInPod)
+        {
+            if(Phaser.Input.Keyboard.JustDown(keyR))
+            {
+                this.isInPod = false;
+                this.leavePod();
+            }
+
+            if(this.pod.x >= 2100)
+            {
+                this.scene.restart();
+            }
+        }
+        else
+        {
+            if(this.dave.x >= 2200 && this.dave.y >= 200 && this.dave.y <= 560)
+            {
+                this.scene.start("scene3");
+            }
+        }
+
+        if(!this.dialogFinish && this.dave.x >= 1200)
+        {
+            this.dialogFinish = true;
+
+            this.dave.body.setAccelerationX(0);
+            this.dave.body.setAccelerationY(0);
+            this.dave.body.setVelocity(0);
+
+            this.pod.body.setAccelerationX(0);
+            this.pod.body.setAccelerationY(0);
+            this.pod.body.setVelocity(0);
+
+            this.scene.run("scene2_dialog");
+        }
+
+        if(!this.scene.isActive('scene2_dialog'))
+        {
+            this.applyMove();
+        }
+
     }
 
     applyMove()
@@ -57,37 +101,72 @@ class Scene2 extends Phaser.Scene
             this.tempAcceleration = this.podAcceleration;
             this.dave.x = this.pod.x;
             this.dave.y = this.pod.y;
+
+            if(cursors.left.isDown)
+            {
+                this.dave.body.setAccelerationX(-this.tempAcceleration);
+                //this.dave.setFlip(true);
+                this.dave.resetFlip();
+                this.pod.body.setAccelerationX(-this.tempAcceleration);
+            }
+            if(cursors.right.isDown)
+            {
+                this.dave.body.setAccelerationX(this.tempAcceleration);
+                this.dave.setFlip(true);
+                //this.dave.resetFlip();
+                //this.dave.setFlip(true, false);
+                this.pod.body.setAccelerationX(this.tempAcceleration);
+            }
+            if(cursors.up.isDown)
+            {
+                this.dave.body.setAccelerationY(-this.tempAcceleration);
+                this.pod.body.setAccelerationY(-this.tempAcceleration);
+            }
+            if(cursors.down.isDown)
+            {
+                this.dave.body.setAccelerationY(this.tempAcceleration);
+                this.pod.body.setAccelerationY(this.tempAcceleration);
+            }
         }
         else
         {
             this.tempAcceleration = this.daveAcceleration;
-        }
 
-        //reset dave and pod speed
-        
+            this.pod.setAccelerationX = 0;
+            this.pod.setAccelerationY = 0;
 
-        //when dave inside the pod
-        if(cursors.left.isDown)
-        {
-            this.dave.body.setAccelerationX(-this.tempAcceleration);
-            this.dave.resetFlip();
-            this.pod.body.setAccelerationX(-this.tempAcceleration);
+            if(cursors.left.isDown)
+            {
+                this.dave.body.setAccelerationX(-this.tempAcceleration);
+                this.dave.resetFlip();
+            }
+            if(cursors.right.isDown)
+            {
+                this.dave.body.setAccelerationX(this.tempAcceleration);
+                this.dave.setFlip(true, false);
+            }
+            if(cursors.up.isDown)
+            {
+                this.dave.body.setAccelerationY(-this.tempAcceleration);
+            }
+            if(cursors.down.isDown)
+            {
+                this.dave.body.setAccelerationY(this.tempAcceleration);
+            }
         }
-        if(cursors.right.isDown)
-        {
-            this.dave.body.setAccelerationX(this.tempAcceleration);
-            this.dave.setFlip(true, false);
-            this.pod.body.setAccelerationX(this.tempAcceleration);
-        }
-        if(cursors.up.isDown)
-        {
-            this.dave.body.setAccelerationY(-this.tempAcceleration);
-            this.pod.body.setAccelerationY(-this.tempAcceleration);
-        }
-        if(cursors.down.isDown)
-        {
-            this.dave.body.setAccelerationY(this.tempAcceleration);
-            this.pod.body.setAccelerationY(this.tempAcceleration);
-        }
+    }
+
+    leavePod()
+    {
+        this.pod.body.setAccelerationX(0);
+        this.pod.body.setAccelerationY(0);
+        this.pod.body.setVelocity(0);
+
+        this.mainCam.setZoom(1.4);
+    }
+
+    playbgm()
+    {
+        this.bgm.play();
     }
 }
