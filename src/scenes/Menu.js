@@ -20,8 +20,6 @@ class Menu extends Phaser.Scene
         //keyboard input
         this.keySpace = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
-        this.keyT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.T);
-        this.keyY = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Y);
     }
 
     update()
@@ -30,16 +28,6 @@ class Menu extends Phaser.Scene
         {
             this.sfx.play();
             this.scene.start("scene1");
-        }
-
-        if(Phaser.Input.Keyboard.JustDown(this.keyT)) 
-        {
-            this.scene.start("scene2");
-        }
-
-        if(Phaser.Input.Keyboard.JustDown(this.keyY)) 
-        {
-            this.scene.start("scene3");
         }
 
         if(Phaser.Input.Keyboard.JustDown(this.keyC))
